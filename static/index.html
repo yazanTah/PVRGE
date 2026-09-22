@@ -1,355 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FlowPurger — C2PA & SynthID Video Cleaner</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#070708">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>PURGE // C2PA & SynthID AI Video Neutralizer</title>
+  <meta name="description" content="Strip C2PA manifests, Google Veo container metadata, and disrupt SynthID watermarks with zero quality loss.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-shell">
-    <!-- Navbar -->
-    <header class="navbar">
-      <div class="brand">
-        <div class="logo-icon">🛡️</div>
-        <div class="brand-text">
-          <div class="brand-title-row">
-            <h1>FlowPurger</h1>
-            <span class="version-tag">v2.0</span>
-          </div>
-          <span class="badge-tag">C2PA & SynthID AI Video Purger</span>
-        </div>
-      </div>
+  <!-- Ambient Subtle Radial Glow -->
+  <div class="glow-point"></div>
 
-      <div class="nav-actions">
-        <div id="statusBadge" class="status-badge online">
-          <span class="status-dot"></span>
-          <span id="statusText">FFmpeg Engine Active</span>
-        </div>
-        <button class="btn btn-outline btn-sm" id="btnHowItWorks">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          How It Works
-        </button>
-        <button class="btn btn-outline btn-sm" id="btnHistory">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
-          Recent Cleaned
-        </button>
+  <!-- Top Utilities Bar -->
+  <header class="top-bar">
+    <div class="engine-badge" id="engineStatus">
+      <span class="badge-dot"></span>
+      <span id="engineStatusText">engine: ffmpeg bitexact</span>
+    </div>
+    <div class="top-nav-links">
+      <button class="nav-link-btn" id="btnHowItWorks">how it works</button>
+      <button class="nav-link-btn" id="btnHistory">history</button>
+    </div>
+  </header>
+
+  <main class="canvas">
+    <!-- Monolithic Wordmark (Slurp Style) -->
+    <header class="monolith-head">
+      <div class="logo-wrap">
+        <svg class="header-icon" viewBox="0 0 32 32" width="38" height="38" fill="none">
+          <path d="M16 3 L28 9 V18 C28 25 16 29.5 16 29.5 C16 29.5 4 25 4 18 V9 L16 3 Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11 16 L15 20 L21 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1 class="logo" id="logoTitle">PURGE</h1>
       </div>
+      <p class="micro-status" id="statusLine">c2pa manifests · jumbf atoms · synthid watermarks · 100% stealth</p>
     </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Left Panel: Mode & Upload Controls -->
-      <section class="panel control-panel">
-        <div class="panel-section-title">
-          <span class="step-num">1</span>
-          <div>
-            <h2>Select Cleaning Mode</h2>
-            <p class="section-desc">Choose between zero-loss speed or anti-SynthID pixel scrambling</p>
-          </div>
-        </div>
-
-        <!-- Mode Selector Cards -->
-        <div class="mode-selector-grid">
-          <label class="mode-card active" id="modeCardQuick">
-            <input type="radio" name="cleanMode" value="quick" checked />
-            <div class="mode-card-header">
-              <span class="mode-icon">⚡</span>
-              <span class="mode-badge quick">Lossless · 0.1s</span>
-            </div>
-            <div class="mode-card-title">Quick C2PA Strip</div>
-            <p class="mode-card-desc">
-              Removes C2PA manifests, JUMBF boxes, XMP packets, and Google container tags.
-            </p>
-            <ul class="mode-perks">
-              <li>✓ 0.00% Video Quality Loss</li>
-              <li>✓ Instant Bitexact Remux (~0.1s)</li>
-              <li>✓ Clears Platform C2PA Flags</li>
-            </ul>
-          </label>
-
-          <label class="mode-card" id="modeCardDeep">
-            <input type="radio" name="cleanMode" value="deep" />
-            <div class="mode-card-header">
-              <span class="mode-icon">🛡️</span>
-              <span class="mode-badge deep">Stealth · Anti-SynthID</span>
-            </div>
-            <div class="mode-card-title">Deep SynthID Clean</div>
-            <p class="mode-card-desc">
-              Full C2PA wipe + micro-temporal dither that breaks DeepMind's invisible watermark.
-            </p>
-            <ul class="mode-perks">
-              <li>✓ Disperses SynthID Lattice</li>
-              <li>✓ Scrambles Detection Threshold</li>
-              <li>✓ Pristine x264 CRF 18 Re-encode</li>
-            </ul>
-          </label>
-        </div>
-
-        <div class="panel-section-title" style="margin-top: 1.5rem;">
-          <span class="step-num">2</span>
-          <div>
-            <h2>Upload Videos or Images</h2>
-            <p class="section-desc">Drag & drop Google Flow / Veo files, or batch select multiple</p>
-          </div>
-        </div>
-
-        <!-- Dropzone -->
-        <div id="dropzone" class="dropzone">
-          <input type="file" id="fileInput" multiple accept="video/mp4,video/quicktime,video/webm,video/x-matroska,image/png,image/jpeg,image/webp" />
-          <div id="dropzoneEmpty" class="dropzone-empty">
-            <div class="upload-icon-circle">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-              </svg>
-            </div>
-            <p class="dropzone-title">Drop Google Flow videos or images here, or <span>browse</span></p>
-            <span class="dropzone-hint">MP4, MOV, WebM, MKV, PNG, JPG, WebP · Single or Batch</span>
-          </div>
-        </div>
-
-        <!-- Selected Files List -->
-        <div id="fileQueueWrapper" class="file-queue-wrapper hidden">
-          <div class="file-queue-header">
-            <span id="fileQueueCount">1 file selected</span>
-            <button id="btnClearQueue" class="btn-text-sm">Clear All</button>
-          </div>
-          <div id="fileQueueList" class="file-queue-list"></div>
-        </div>
-
-        <!-- Action Button -->
-        <button id="btnClean" class="btn btn-primary btn-action" disabled>
-          <span class="btn-icon">🛡️</span>
-          <span id="btnCleanText">Select a File to Clean</span>
+    <!-- The Machine Zone -->
+    <section class="machine-zone">
+      <!-- Mode Segment Switcher -->
+      <div class="mode-segment">
+        <button class="mode-tab active" id="tabQuick" data-mode="quick">
+          <span class="mode-dot"></span>
+          <span class="mode-title">⚡ QUICK (LOSSLESS · 0.08s)</span>
+          <span class="mode-sub">Bitexact Remux · 0% Quality Loss</span>
         </button>
+        <button class="mode-tab" id="tabDeep" data-mode="deep">
+          <span class="mode-dot"></span>
+          <span class="mode-title">🛡️ DEEP (ANTI-SYNTHID)</span>
+          <span class="mode-sub">Pixel Dither · Disrupts AI Scanners</span>
+        </button>
+      </div>
 
-        <!-- Progress Tracker -->
-        <div id="progressTracker" class="progress-tracker hidden">
-          <div class="progress-header">
-            <span id="progressTitle">Scrubbing C2PA & Provenance Metadata...</span>
-            <span id="progressPercent" class="progress-percent">0%</span>
+      <!-- Drag & Drop / Upload Machine -->
+      <div id="dropzone" class="dropzone">
+        <input type="file" id="fileInput" multiple accept="video/mp4,video/quicktime,video/webm,video/x-matroska,image/png,image/jpeg,image/webp" />
+        <div class="dropzone-inner">
+          <div class="drop-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
           </div>
-          <div class="progress-bar-track">
-            <div id="progressBarFill" class="progress-bar-fill"></div>
+          <div class="drop-text">
+            <span class="drop-primary">drop google flow video or image here</span>
+            <span class="drop-secondary">or click to browse · single or batch</span>
           </div>
-          <div id="progressStatusText" class="progress-status-text">Initializing FFmpeg bitexact engine...</div>
+          <span class="drop-meta">mp4 · mov · webm · mkv · png · webp</span>
         </div>
-      </section>
+      </div>
 
-      <!-- Right Panel: Inspection, Audit & Result Viewer -->
-      <section class="panel viewer-panel">
-        <!-- Initial Empty State -->
-        <div id="viewerEmpty" class="viewer-empty-state">
-          <div class="radar-box">
-            <div class="radar-pulse"></div>
-            <div class="shield-graphic">🛡️</div>
+      <!-- Pulse Bar Loader -->
+      <div class="pulse-bar" id="pulseBar"></div>
+      <div id="loadingStatusText" class="loading-status-text hidden">scrubbing c2pa & provenance metadata...</div>
+
+      <!-- Output Surface (Single Video Result) -->
+      <div id="outputSurface" class="output-surface hidden">
+        <!-- Status Bar -->
+        <div class="output-header-bar">
+          <div class="purge-badge">
+            <span class="purge-badge-dot"></span>
+            <span id="auditResultBadge">100% STEALTH // PURGED</span>
           </div>
-          <h3>Provenance & Watermark Inspector</h3>
+          <div class="header-right">
+            <span class="time-stamp" id="auditTime">0.08s</span>
+            <button class="btn-mini-reset" id="btnReset" title="Reset">esc</button>
+          </div>
+        </div>
+
+        <!-- Forensic Audit Spec -->
+        <div class="audit-matrix">
+          <div class="audit-item">
+            <span class="matrix-label">C2PA MANIFEST:</span>
+            <span class="matrix-val clean" id="matrixC2pa">PURGED (0 bytes)</span>
+          </div>
+          <div class="audit-item">
+            <span class="matrix-label">JUMBF ATOMS:</span>
+            <span class="matrix-val clean" id="matrixJumbf">STRIPPED</span>
+          </div>
+          <div class="audit-item">
+            <span class="matrix-label">SYNTHID LATTICE:</span>
+            <span class="matrix-val clean" id="matrixSynthid">NEUTRALIZED</span>
+          </div>
+          <div class="audit-item">
+            <span class="matrix-label">PLATFORM RISK:</span>
+            <span class="matrix-val clean" id="matrixRisk">0% (UNDETECTABLE)</span>
+          </div>
+        </div>
+
+        <!-- Video Player Stage -->
+        <div class="preview-stage">
+          <div class="stage-toolbar">
+            <span class="stage-filename" id="stageFilename">scrubbed_video.mp4</span>
+            <div class="toggle-switch">
+              <button class="btn-switch active" id="btnViewClean">Clean</button>
+              <button class="btn-switch" id="btnViewOriginal">Original</button>
+            </div>
+          </div>
+          <div class="stage-screen">
+            <video id="stageVideo" controls playsinline></video>
+            <img id="stageImage" class="hidden" alt="Cleaned preview" />
+          </div>
+        </div>
+
+        <!-- Chunky Download Button -->
+        <a id="btnDownloadClean" href="#" download class="btn-purge-action">
+          <span class="btn-arrow">↓</span>
+          <span id="btnDownloadText">DOWNLOAD CLEAN MP4</span>
+        </a>
+      </div>
+
+      <!-- Batch Output Surface -->
+      <div id="batchSurface" class="output-surface hidden">
+        <div class="output-header-bar">
+          <div class="purge-badge">
+            <span class="purge-badge-dot"></span>
+            <span id="batchCountBadge">BATCH COMPLETE</span>
+          </div>
+          <button class="btn-mini-reset" id="btnResetBatch">esc</button>
+        </div>
+
+        <div class="batch-items-list" id="batchItemsList"></div>
+
+        <button id="btnDownloadBatchZip" class="btn-purge-action">
+          <span class="btn-arrow">↓</span>
+          <span>DOWNLOAD ALL AS ZIP</span>
+        </button>
+      </div>
+
+      <!-- Sub Hint -->
+      <div class="sub-hint">
+        <span>drag & drop anywhere · zero quality loss · 100% private</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- How It Works Modal -->
+  <div id="howItWorksModal" class="modal-backdrop hidden">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2>HOW PURGE WORKS</h2>
+        <button class="btn-close" id="btnCloseHowItWorks">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="spec-block">
+          <div class="spec-title">01 // C2PA & JUMBF MANIFESTS</div>
           <p>
-            Upload any AI-generated video to automatically detect C2PA manifests, JUMBF boxes,
-            and Google DeepMind SynthID signatures before cleaning.
+            Google Flow & Veo inject cryptographically signed <code>c2pa</code> manifests into container boxes (specifically <code>uuid</code> and <code>JUMBF</code> atoms).
+            Social platforms (TikTok, Instagram, YouTube Shorts) inspect these bytes and tag the video with forced "AI-generated" flags.
           </p>
-          <div class="threat-matrix-preview">
-            <div class="threat-card">
-              <span class="threat-dot red"></span>
-              <div>
-                <strong>C2PA JUMBF Manifests</strong>
-                <p>Causes TikTok / IG / YT to label your video as "AI-generated"</p>
-              </div>
-            </div>
-            <div class="threat-card">
-              <span class="threat-dot orange"></span>
-              <div>
-                <strong>SynthID Frequency Latents</strong>
-                <p>Invisible pixel watermarks detected by AI scanners</p>
-              </div>
-            </div>
-          </div>
+          <p class="accent-text">
+            → QUICK MODE: Bitexact container remux strips 100% of C2PA atoms in ~0.08s with 0.00% video re-encoding loss.
+          </p>
         </div>
 
-        <!-- Single File Result View -->
-        <div id="singleResultView" class="single-result-view hidden">
-          <!-- Audit Card: Before vs After -->
-          <div class="audit-card">
-            <div class="audit-card-header">
-              <div class="audit-title-group">
-                <span class="audit-icon">🔍</span>
-                <h4>Forensic Metadata Audit</h4>
-              </div>
-              <div class="audit-badges">
-                <span id="auditTimeBadge" class="audit-badge time">⏱️ 0.08s</span>
-                <span id="auditStatusBadge" class="audit-badge stealth">🟢 100% STEALTH</span>
-              </div>
-            </div>
-
-            <div class="audit-grid">
-              <div class="audit-col before">
-                <div class="col-title">Before Cleaning (Source)</div>
-                <div class="audit-row">
-                  <span class="row-label">C2PA Manifest:</span>
-                  <span id="auditBeforeC2pa" class="row-val flagged">DETECTED</span>
-                </div>
-                <div class="audit-row">
-                  <span class="row-label">JUMBF Atoms:</span>
-                  <span id="auditBeforeJumbf" class="row-val flagged">PRESENT</span>
-                </div>
-                <div class="audit-row">
-                  <span class="row-label">AI Provenance / XMP:</span>
-                  <span id="auditBeforeAi" class="row-val flagged">FOUND</span>
-                </div>
-                <div class="audit-row">
-                  <span class="row-label">Platform Risk:</span>
-                  <span id="auditBeforeRisk" class="row-val high-risk">HIGH RISK</span>
-                </div>
-              </div>
-
-              <div class="audit-col after">
-                <div class="col-title">After Purge (Cleaned Output)</div>
-                <div class="audit-row">
-                  <span class="row-label">C2PA Manifest:</span>
-                  <span id="auditAfterC2pa" class="row-val clean">STRIPPED (0 bytes)</span>
-                </div>
-                <div class="audit-row">
-                  <span class="row-label">JUMBF Atoms:</span>
-                  <span id="auditAfterJumbf" class="row-val clean">PURGED</span>
-                </div>
-                <div class="audit-row">
-                  <span class="row-label">SynthID Watermark:</span>
-                  <span id="auditAfterSynthid" class="row-val clean">NEUTRALIZED</span>
-                </div>
-                <div class="audit-row">
-                  <span class="row-label">Platform Risk:</span>
-                  <span id="auditAfterRisk" class="row-val clean">0% (UNDETECTABLE)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Video / Image Preview Player -->
-          <div class="media-player-container">
-            <div class="player-toolbar">
-              <div class="player-title">
-                <span id="playerMediaName">scrubbed_video.mp4</span>
-                <span id="playerMediaSize" class="player-size">14.2 MB</span>
-              </div>
-              <div class="player-view-toggle">
-                <button class="toggle-btn active" id="btnShowCleaned">Cleaned Video</button>
-                <button class="toggle-btn" id="btnShowOriginal">Original Video</button>
-              </div>
-            </div>
-
-            <div class="player-screen">
-              <video id="resultVideo" controls playsinline></video>
-              <img id="resultImage" class="hidden" alt="Cleaned preview" />
-            </div>
-
-            <div class="player-actions">
-              <a id="btnDownloadClean" href="#" download class="btn btn-primary btn-download">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                Download Clean Media
-              </a>
-              <button id="btnCleanAnother" class="btn btn-outline">
-                Clean Another File
-              </button>
-            </div>
-          </div>
+        <div class="spec-block">
+          <div class="spec-title">02 // DEEPMIND SYNTHID WATERMARK</div>
+          <p>
+            SynthID embeds an imperceptible watermark directly into pixel frequency distributions across frames.
+            It survives simple container remuxes because it lives inside the image pixels themselves.
+          </p>
+          <p class="accent-text">
+            → DEEP MODE: Injects micro-temporal pixel dispersion and a subtle contrast lattice shift that scrambles the statistical detection threshold, re-encoded in pristine x264 CRF 18.
+          </p>
         </div>
 
-        <!-- Batch Results View -->
-        <div id="batchResultsView" class="batch-results-view hidden">
-          <div class="batch-header">
-            <div>
-              <h4>Batch Clean Completed</h4>
-              <span id="batchSummaryText" class="batch-summary">4 of 4 files cleaned successfully</span>
-            </div>
-            <button id="btnDownloadBatchZip" class="btn btn-primary btn-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              Download All as ZIP
-            </button>
-          </div>
-
-          <div class="batch-table-wrapper">
-            <table class="batch-table">
-              <thead>
-                <tr>
-                  <th>Original File</th>
-                  <th>Mode</th>
-                  <th>C2PA Status</th>
-                  <th>Time</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="batchTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- History Drawer / Modal -->
-    <div id="historyModal" class="modal-backdrop hidden">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h3>Recent Cleaned Files</h3>
-          <button class="modal-close-btn" id="btnCloseHistory">✕</button>
-        </div>
-        <div class="modal-body">
-          <div id="historyList" class="history-list">
-            <p class="text-muted">Loading history...</p>
-          </div>
+        <div class="spec-block">
+          <div class="spec-title">03 // 100% LOCAL & FREE</div>
+          <p>
+            No cloud APIs, no monthly subscription fees, and no data leaving your machine. Powered by high-speed local FFmpeg.
+          </p>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- How It Works Modal -->
-    <div id="howItWorksModal" class="modal-backdrop hidden">
-      <div class="modal-card modal-lg">
-        <div class="modal-header">
-          <h3>How FlowPurger Works</h3>
-          <button class="modal-close-btn" id="btnCloseHowItWorks">✕</button>
-        </div>
-        <div class="modal-body explainer-body">
-          <div class="explainer-section">
-            <div class="explainer-badge">Problem 1: C2PA & JUMBF Manifests</div>
-            <p>
-              Google Flow & Veo videos embed a cryptographically signed <code>c2pa</code> manifest inside MP4 container
-              boxes (specifically <code>uuid</code> and <code>JUMBF</code> boxes). Social platforms like TikTok, Instagram, and
-              YouTube read these exact bytes on upload and automatically slap mandatory <strong>"AI-generated"</strong> warnings
-              or suppress algorithm reach.
-            </p>
-            <p>
-              <strong>The Fix (Quick Clean):</strong> FlowPurger performs a bitexact container remux that strips 100% of C2PA manifests,
-              XMP packets, and Google encoder tags without recompressing video or audio streams. Duration: <strong>~0.08s</strong> with
-              <strong>0.00% quality loss</strong>.
-            </p>
-          </div>
-
-          <div class="explainer-section">
-            <div class="explainer-badge purple">Problem 2: DeepMind SynthID Watermark</div>
-            <p>
-              Google DeepMind's <strong>SynthID</strong> embeds an imperceptible watermark directly into the pixel color frequencies
-              of video frames. Unlike C2PA, this survives container metadata stripping because it lives inside the image pixels themselves.
-            </p>
-            <p>
-              <strong>The Fix (Deep Clean):</strong> FlowPurger applies a specialized micro-temporal dither and perceptual contrast shift
-              that scatters the statistical pixel correlation required by SynthID detectors to verify watermarks. It then re-encodes the
-              stream with high-fidelity x264 (CRF 18), completely breaking automated detection while keeping the visual output identical
-              to human viewers.
-            </p>
-          </div>
-
-          <div class="explainer-section">
-            <div class="explainer-badge green">100% Local & Free</div>
-            <p>
-              No cloud uploads, no monthly API credits, and no third-party subscription fees. Everything runs locally on your PC
-              powered by high-performance FFmpeg.
-            </p>
-          </div>
+  <!-- History Modal -->
+  <div id="historyModal" class="modal-backdrop hidden">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2>RECENT SCRUBBED FILES</h2>
+        <button class="btn-close" id="btnCloseHistory">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="historyItems" class="history-items">
+          <p class="dim-text">Loading history...</p>
         </div>
       </div>
     </div>
