@@ -161,9 +161,34 @@ async def get_history():
         })
     return {"history": items}
 
+def cleanup_old_files(max_age_seconds: int = 3600):
+    """Deletes uploaded and processed files older than max_age_seconds to prevent disk bloat."""
+    import time
+    now = time.time()
+    for folder in [UPLOADS_DIR, OUTPUTS_DIR]:
+        for p in folder.glob("*"):
+            if p.is_file() and (now - p.stat().st_mtime) > max_age_seconds:
+                try:
+                    p.unlink()
+                except Exception:
+                    pass
+
+@app.on_event("startup")
+async def startup_event():
+    cleanup_old_files()
+    async def periodic_cleanup():
+        import asyncio
+        while True:
+            await asyncio.sleep(1800)  # Run every 30 minutes
+            cleanup_old_files()
+    import asyncio
+    asyncio.create_task(periodic_cleanup())
+
 app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn
-    print("Starting C2PA & SynthID Purger on http://localhost:8000 ...")
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    print(f"Starting C2PA & SynthID Purger on port {port} ...")
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
+

@@ -71,6 +71,25 @@ Open your browser at:
 
 ---
 
+## 🌐 Deploy Free on Render (Cloud Web App)
+
+You can host FlowPurger online 24/7 on **Render.com** (Free tier supported):
+
+### Method 1: Connect GitHub Repo (Recommended)
+1. Go to [render.com](https://render.com) and log in.
+2. Click **New +** → **Web Service**.
+3. Connect your GitHub repository: `yazanTah/flow-image-translator`.
+4. Render will automatically detect the **`Dockerfile`**.
+5. Select the **Free** instance type and click **Deploy Web Service**.
+6. Render builds the container with FFmpeg and provides an instant live URL: `https://your-app.onrender.com`.
+
+### Method 2: Render Blueprint (1-Click)
+1. In Render, click **New +** → **Blueprint**.
+2. Select your repository. It will automatically load [`render.yaml`](render.yaml) and configure everything.
+3. Click **Apply**.
+
+---
+
 ## 💻 CLI Usage (Command Line)
 
 You can also use the cleaner engine directly from the command line without opening the web interface:
