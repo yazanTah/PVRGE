@@ -4,3 +4,4 @@ pillow>=10.2.0
 python-multipart>=0.0.9
 requests>=2.31.0
 aiofiles>=23.2.1
+imageio-ffmpeg>=0.5.1

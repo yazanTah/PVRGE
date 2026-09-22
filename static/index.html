@@ -3,204 +3,337 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#070708">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>PURGE // C2PA & SynthID AI Video Neutralizer</title>
-  <meta name="description" content="Strip C2PA manifests, Google Veo container metadata, and disrupt SynthID watermarks with zero quality loss.">
+  <meta name="theme-color" content="#06070a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>SPECTRE // AI Surveillance & Provenance Countermeasure</title>
+  <meta name="description" content="Anti-TikTok C2PA manifest sanitizer, Google Veo container scrubber, and DeepMind SynthID frequency disruptor.">
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="apple-touch-icon" href="favicon.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=JetBrains+Mono:ital,wght@0,400;0,700;0,800;1,400&family=Syne:wght@800;900&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Ambient Subtle Radial Glow -->
-  <div class="glow-point"></div>
+  <!-- Atmospheric Scanline Sheen -->
+  <div class="crt-overlay"></div>
+  <div class="ambient-mesh"></div>
 
-  <!-- Top Utilities Bar -->
-  <header class="top-bar">
-    <div class="engine-badge" id="engineStatus">
-      <span class="badge-dot"></span>
-      <span id="engineStatusText">engine: ffmpeg bitexact</span>
-    </div>
-    <div class="top-nav-links">
-      <button class="nav-link-btn" id="btnHowItWorks">how it works</button>
-      <button class="nav-link-btn" id="btnHistory">history</button>
-    </div>
-  </header>
-
-  <main class="canvas">
-    <!-- Monolithic Wordmark (Slurp Style) -->
-    <header class="monolith-head">
-      <div class="logo-wrap">
-        <svg class="header-icon" viewBox="0 0 32 32" width="38" height="38" fill="none">
-          <path d="M16 3 L28 9 V18 C28 25 16 29.5 16 29.5 C16 29.5 4 25 4 18 V9 L16 3 Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M11 16 L15 20 L21 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <h1 class="logo" id="logoTitle">PURGE</h1>
+  <div class="console-wrapper">
+    <!-- Top System Telemetry HUD -->
+    <header class="hud-bar">
+      <div class="hud-left">
+        <span class="hud-bracket">[</span>
+        <span class="hud-signal-dot"></span>
+        <span class="hud-title">SPECTRE // ANTI-SURVEILLANCE LABS</span>
+        <span class="hud-bracket">]</span>
       </div>
-      <p class="micro-status" id="statusLine">c2pa manifests · jumbf atoms · synthid watermarks · 100% stealth</p>
+
+      <!-- Live Oscilloscope Waveform Canvas -->
+      <div class="hud-center">
+        <canvas id="oscCanvas" width="160" height="24"></canvas>
+        <span class="hud-freq-tag">LATTICE: DISRUPTED</span>
+      </div>
+
+      <div class="hud-right">
+        <button class="hud-btn" id="btnHowItWorks">[ SPEC // HOW IT WORKS ]</button>
+        <button class="hud-btn" id="btnHistory">[ LOGS // RECENT ]</button>
+      </div>
     </header>
 
-    <!-- The Machine Zone -->
-    <section class="machine-zone">
-      <!-- Mode Segment Switcher -->
-      <div class="mode-segment">
-        <button class="mode-tab active" id="tabQuick" data-mode="quick">
-          <span class="mode-dot"></span>
-          <span class="mode-title">⚡ QUICK (LOSSLESS · 0.08s)</span>
-          <span class="mode-sub">Bitexact Remux · 0% Quality Loss</span>
-        </button>
-        <button class="mode-tab" id="tabDeep" data-mode="deep">
-          <span class="mode-dot"></span>
-          <span class="mode-title">🛡️ DEEP (ANTI-SYNTHID)</span>
-          <span class="mode-sub">Pixel Dither · Disrupts AI Scanners</span>
-        </button>
+    <!-- Hero Title Block -->
+    <section class="monolith-hero">
+      <div class="hero-tag-row">
+        <span class="tag-pill cyan">COUNTER-MEASURE v2.8</span>
+        <span class="tag-pill neon">TIKTOK ALGORITHM SPOOF ACTIVE</span>
+        <span class="tag-pill">RENDER 512MB COMPATIBLE</span>
       </div>
+      <h1 class="hero-glitch-title" data-text="C2PA//NULL">C2PA//NULL</h1>
+      <p class="hero-subtext">
+        Strip C2PA manifests, obliterate Google Veo provenance tags, and scatter DeepMind SynthID pixel frequencies.
+      </p>
+    </section>
 
-      <!-- Drag & Drop / Upload Machine -->
-      <div id="dropzone" class="dropzone">
-        <input type="file" id="fileInput" multiple accept="video/mp4,video/quicktime,video/webm,video/x-matroska,image/png,image/jpeg,image/webp" />
-        <div class="dropzone-inner">
-          <div class="drop-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
+    <!-- Main Operational Console -->
+    <main class="console-grid">
+      <!-- Left Column: Camouflage & Weaponry Controls -->
+      <div class="deck-controls">
+        <!-- 1. Camouflage Identity Module (Anti-TikTok Algorithm Shield) -->
+        <div class="panel-box">
+          <div class="panel-header">
+            <span class="panel-idx">01 //</span>
+            <h3>ALGORITHM CAMOUFLAGE PERSONA</h3>
           </div>
-          <div class="drop-text">
-            <span class="drop-primary">drop google flow video or image here</span>
-            <span class="drop-secondary">or click to browse · single or batch</span>
-          </div>
-          <span class="drop-meta">mp4 · mov · webm · mkv · png · webp</span>
-        </div>
-      </div>
+          <p class="panel-desc">
+            Social platforms parse filenames on upload. Disguise AI clips as organic phone camera rolls.
+          </p>
 
-      <!-- Pulse Bar Loader -->
-      <div class="pulse-bar" id="pulseBar"></div>
-      <div id="loadingStatusText" class="loading-status-text hidden">scrubbing c2pa & provenance metadata...</div>
+          <div class="persona-chips" id="personaChips">
+            <button class="chip-btn active" data-style="random">
+              <span class="chip-icon">🎲</span> Random Chameleon
+            </button>
+            <button class="chip-btn" data-style="iphone">
+              <span class="chip-icon">🍏</span> iPhone Camera (IMG_xxxx)
+            </button>
+            <button class="chip-btn" data-style="android">
+              <span class="chip-icon">⚡</span> Galaxy Camera (VID_xxxx)
+            </button>
+            <button class="chip-btn" data-style="pixel">
+              <span class="chip-icon">🎯</span> Google Pixel (PXL_xxxx)
+            </button>
+            <button class="chip-btn" data-style="screen">
+              <span class="chip-icon">📱</span> iOS Screen Recording
+            </button>
+            <button class="chip-btn" data-style="editor">
+              <span class="chip-icon">✂️</span> CapCut Export
+            </button>
+            <button class="chip-btn" data-style="weird">
+              <span class="chip-icon">👾</span> Weird Cryptic Cut
+            </button>
+          </div>
 
-      <!-- Output Surface (Single Video Result) -->
-      <div id="outputSurface" class="output-surface hidden">
-        <!-- Status Bar -->
-        <div class="output-header-bar">
-          <div class="purge-badge">
-            <span class="purge-badge-dot"></span>
-            <span id="auditResultBadge">100% STEALTH // PURGED</span>
-          </div>
-          <div class="header-right">
-            <span class="time-stamp" id="auditTime">0.08s</span>
-            <button class="btn-mini-reset" id="btnReset" title="Reset">esc</button>
-          </div>
-        </div>
-
-        <!-- Forensic Audit Spec -->
-        <div class="audit-matrix">
-          <div class="audit-item">
-            <span class="matrix-label">C2PA MANIFEST:</span>
-            <span class="matrix-val clean" id="matrixC2pa">PURGED (0 bytes)</span>
-          </div>
-          <div class="audit-item">
-            <span class="matrix-label">JUMBF ATOMS:</span>
-            <span class="matrix-val clean" id="matrixJumbf">STRIPPED</span>
-          </div>
-          <div class="audit-item">
-            <span class="matrix-label">SYNTHID LATTICE:</span>
-            <span class="matrix-val clean" id="matrixSynthid">NEUTRALIZED</span>
-          </div>
-          <div class="audit-item">
-            <span class="matrix-label">PLATFORM RISK:</span>
-            <span class="matrix-val clean" id="matrixRisk">0% (UNDETECTABLE)</span>
+          <div class="disguise-preview-bar">
+            <span class="disguise-label">TARGET SPOOF NAME:</span>
+            <span class="disguise-val" id="disguisePreview">IMG_4829.mp4</span>
+            <button class="btn-reroll" id="btnRerollName" title="Reroll disguise">↻</button>
           </div>
         </div>
 
-        <!-- Video Player Stage -->
-        <div class="preview-stage">
-          <div class="stage-toolbar">
-            <span class="stage-filename" id="stageFilename">scrubbed_video.mp4</span>
-            <div class="toggle-switch">
-              <button class="btn-switch active" id="btnViewClean">Clean</button>
-              <button class="btn-switch" id="btnViewOriginal">Original</button>
+        <!-- 2. Disruption Engine (Dual Rocker Switch) -->
+        <div class="panel-box">
+          <div class="panel-header">
+            <span class="panel-idx">02 //</span>
+            <h3>DISRUPTION FREQUENCY ENGINE</h3>
+          </div>
+
+          <div class="rocker-switch">
+            <button class="rocker-tab active" id="tabQuick" data-mode="quick">
+              <div class="rocker-top">
+                <span class="rocker-led"></span>
+                <span class="rocker-name">PROTOCOL A // QUICK STRIP</span>
+              </div>
+              <div class="rocker-spec">
+                <span>⚡ 0.04s BITEXACT COPY</span>
+                <span>• 0.00% STREAM LOSS</span>
+                <span>• PURGES 100% C2PA / JUMBF</span>
+              </div>
+            </button>
+
+            <button class="rocker-tab" id="tabDeep" data-mode="deep">
+              <div class="rocker-top">
+                <span class="rocker-led"></span>
+                <span class="rocker-name">PROTOCOL B // ANTI-SYNTHID</span>
+              </div>
+              <div class="rocker-spec">
+                <span>🛡️ PIXEL LATTICE DITHER</span>
+                <span>• SCRAMBLES DEEPMIND THRESHOLD</span>
+                <span>• ULTRAFAST CRF 21 (RENDER SAFE)</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Drag & Drop Anomaly Void -->
+        <div class="panel-box drop-box-panel">
+          <div class="panel-header">
+            <span class="panel-idx">03 //</span>
+            <h3>DROP AI MEDIA INTO THE VOID</h3>
+          </div>
+
+          <div id="dropzone" class="anomaly-dropzone">
+            <input type="file" id="fileInput" multiple accept="video/mp4,video/quicktime,video/webm,video/x-matroska,image/png,image/jpeg,image/webp" />
+            <div class="corner-cross tl">+</div>
+            <div class="corner-cross tr">+</div>
+            <div class="corner-cross bl">+</div>
+            <div class="corner-cross br">+</div>
+
+            <div class="drop-core">
+              <div class="scanner-ring">
+                <div class="scanner-sweep"></div>
+                <div class="scanner-glyph">⌖</div>
+              </div>
+              <div class="drop-prompt">
+                <span class="drop-line-1">DROP GOOGLE FLOW / VEO FOOTAGE HERE</span>
+                <span class="drop-line-2">OR CLICK TO TRANSMIT (SINGLE OR BATCH)</span>
+              </div>
+              <div class="drop-formats">[ MP4 · MOV · WEBM · MKV · PNG · WEBP ]</div>
             </div>
           </div>
-          <div class="stage-screen">
-            <video id="stageVideo" controls playsinline></video>
-            <img id="stageImage" class="hidden" alt="Cleaned preview" />
+
+          <!-- Real-Time Progress Bar -->
+          <div id="progressBox" class="progress-box hidden">
+            <div class="progress-bar-track">
+              <div id="progressBarFill" class="progress-bar-neon"></div>
+            </div>
+            <div class="progress-meta">
+              <span id="progressStatusText">INITIALIZING NEURAL DISRUPTOR...</span>
+              <span id="progressPercentText" class="mono-cyan">0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Diagnostic Readout & Viewfinder Stage -->
+      <div class="deck-stage">
+        <!-- Initial Idle Radar -->
+        <div id="stageIdle" class="stage-idle-state">
+          <div class="idle-radar-graphic">
+            <div class="radar-circle-1"></div>
+            <div class="radar-circle-2"></div>
+            <div class="radar-scanline"></div>
+            <div class="radar-center-dot"></div>
+          </div>
+          <h4>PROVENANCE SENSORS ARMED</h4>
+          <p>Transmit an AI video to inspect binary atom manifests, detect Google provenance headers, and sterilize SynthID watermarks.</p>
+          <div class="radar-telemetry-list">
+            <div class="telemetry-item">
+              <span class="dot-red"></span>
+              <span>C2PA MANIFEST JUMBF: AUTOMATICALLY FLAGGED BY TIKTOK/IG</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="dot-orange"></span>
+              <span>SYNTHID FREQUENCY EMBEDDING: DEEPMIND PIXEL WATERMARK</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="dot-green"></span>
+              <span>CAMERA SPOOF ENGINE: DISGUISED AS RAW HARDWARE CAPTURE</span>
+            </div>
           </div>
         </div>
 
-        <!-- Chunky Download Button -->
-        <a id="btnDownloadClean" href="#" download class="btn-purge-action">
-          <span class="btn-arrow">↓</span>
-          <span id="btnDownloadText">DOWNLOAD CLEAN MP4</span>
-        </a>
-      </div>
-
-      <!-- Batch Output Surface -->
-      <div id="batchSurface" class="output-surface hidden">
-        <div class="output-header-bar">
-          <div class="purge-badge">
-            <span class="purge-badge-dot"></span>
-            <span id="batchCountBadge">BATCH COMPLETE</span>
+        <!-- Single Scrubbed Result View -->
+        <div id="singleResultStage" class="single-result-stage hidden">
+          <!-- Terminal Diagnostic Telemetry -->
+          <div class="diagnostic-terminal">
+            <div class="terminal-head">
+              <div class="terminal-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="terminal-title">FORENSIC TELEMETRY // DISSECTION MATRIX</span>
+              <span class="terminal-badge" id="telemetryBadge">STEALTH: 100%</span>
+            </div>
+            <div class="terminal-body" id="terminalOutput">
+              <div class="term-row">
+                <span class="term-lbl">> C2PA MANIFEST:</span>
+                <span class="term-val green" id="termC2pa">0x00000000 [PURGED / 0 BYTES]</span>
+              </div>
+              <div class="term-row">
+                <span class="term-lbl">> JUMBF BOXES:</span>
+                <span class="term-val green" id="termJumbf">STRIPPED // SIGNATURE ZEROED</span>
+              </div>
+              <div class="term-row">
+                <span class="term-lbl">> SYNTHID LATTICE:</span>
+                <span class="term-val green" id="termSynthid">FREQUENCY DISPERSED (0% CORRELATION)</span>
+              </div>
+              <div class="term-row">
+                <span class="term-lbl">> SPOOF FILENAME:</span>
+                <span class="term-val cyan" id="termSpoofName">IMG_4829.mp4</span>
+              </div>
+              <div class="term-row">
+                <span class="term-lbl">> PLATFORM RADAR:</span>
+                <span class="term-val green">UNDETECTABLE // ORGANIC ASSET</span>
+              </div>
+              <div class="term-row">
+                <span class="term-lbl">> PROCESSING TIME:</span>
+                <span class="term-val mono-cyan" id="termTime">0.05s</span>
+              </div>
+            </div>
           </div>
-          <button class="btn-mini-reset" id="btnResetBatch">esc</button>
+
+          <!-- Tactical Viewfinder Player -->
+          <div class="viewfinder-box">
+            <div class="viewfinder-bar">
+              <div class="rec-group">
+                <span class="rec-dot"></span>
+                <span class="rec-label">SPOOFED VIEW</span>
+              </div>
+              <span class="viewfinder-name" id="viewfinderName">IMG_4829.mp4</span>
+              <div class="viewfinder-toggles">
+                <button class="vf-toggle active" id="btnShowCleaned">Clean</button>
+                <button class="vf-toggle" id="btnShowOriginal">Raw</button>
+              </div>
+            </div>
+
+            <div class="viewfinder-screen">
+              <video id="stageVideo" controls playsinline></video>
+              <img id="stageImage" class="hidden" alt="Scrubbed image" />
+            </div>
+
+            <div class="viewfinder-actions">
+              <a id="btnDownloadClean" href="#" download class="btn-tactical-download">
+                <span class="tactical-arrow">↓</span>
+                <span id="btnDownloadLabel">DOWNLOAD AS IMG_4829.MP4</span>
+              </a>
+              <button class="btn-tactical-reset" id="btnResetView">↻ DISPATCH ANOTHER</button>
+            </div>
+          </div>
         </div>
 
-        <div class="batch-items-list" id="batchItemsList"></div>
+        <!-- Batch Results Stage -->
+        <div id="batchResultStage" class="batch-result-stage hidden">
+          <div class="batch-telemetry-header">
+            <div class="batch-title-group">
+              <span class="pulse-green-dot"></span>
+              <h4>BATCH PROTOCOL COMPLETED</h4>
+            </div>
+            <span class="batch-count-tag" id="batchCountTag">4 FILES STERILIZED</span>
+          </div>
 
-        <button id="btnDownloadBatchZip" class="btn-purge-action">
-          <span class="btn-arrow">↓</span>
-          <span>DOWNLOAD ALL AS ZIP</span>
-        </button>
-      </div>
+          <div class="batch-card-list" id="batchCardList"></div>
 
-      <!-- Sub Hint -->
-      <div class="sub-hint">
-        <span>drag & drop anywhere · zero quality loss · 100% private</span>
+          <button id="btnDownloadBatchZip" class="btn-tactical-download">
+            <span class="tactical-arrow">↓</span>
+            <span>DOWNLOAD ENTIRE BATCH AS ZIP</span>
+          </button>
+        </div>
       </div>
-    </section>
-  </main>
+    </main>
+
+    <!-- Technical Footer -->
+    <footer class="console-footer">
+      <span class="footer-spec">SPECTRE ENGINE // 100% LOCAL FFmpeg // 0.00% CLOUD LEAK</span>
+      <span class="footer-hint">HOTKEY: ESCAPE RESETS STAGE</span>
+    </footer>
+  </div>
 
   <!-- How It Works Modal -->
   <div id="howItWorksModal" class="modal-backdrop hidden">
-    <div class="modal-window">
-      <div class="modal-header">
-        <h2>HOW PURGE WORKS</h2>
-        <button class="btn-close" id="btnCloseHowItWorks">✕</button>
+    <div class="modal-vault">
+      <div class="modal-vault-header">
+        <h3>// SPECIFICATION: C2PA DECONSTRUCTION</h3>
+        <button class="btn-vault-close" id="btnCloseHowItWorks">✕</button>
       </div>
-      <div class="modal-body">
-        <div class="spec-block">
-          <div class="spec-title">01 // C2PA & JUMBF MANIFESTS</div>
+      <div class="modal-vault-body">
+        <div class="vault-block">
+          <div class="vault-block-title">01 // C2PA & JUMBF ATOMS</div>
           <p>
-            Google Flow & Veo inject cryptographically signed <code>c2pa</code> manifests into container boxes (specifically <code>uuid</code> and <code>JUMBF</code> atoms).
-            Social platforms (TikTok, Instagram, YouTube Shorts) inspect these bytes and tag the video with forced "AI-generated" flags.
+            Google Flow and Veo videos contain binary <code>c2pa</code> metadata inside MP4 container boxes
+            (specifically <code>uuid</code> and <code>JUMBF</code> boxes). Social network bots (TikTok, Reels, Shorts)
+            scan container atoms upon upload and automatically assign restrictive "AI-generated" algorithmic flags.
           </p>
-          <p class="accent-text">
-            → QUICK MODE: Bitexact container remux strips 100% of C2PA atoms in ~0.08s with 0.00% video re-encoding loss.
-          </p>
+          <div class="vault-accent">
+            QUICK STRIP: Executes a bitexact container remux that strips 100% of C2PA manifest boxes without touching video streams (0.00% quality loss, 0.04s execution).
+          </div>
         </div>
 
-        <div class="spec-block">
-          <div class="spec-title">02 // DEEPMIND SYNTHID WATERMARK</div>
+        <div class="vault-block">
+          <div class="vault-block-title">02 // DEEPMIND SYNTHID FREQUENCY WATERMARK</div>
           <p>
-            SynthID embeds an imperceptible watermark directly into pixel frequency distributions across frames.
-            It survives simple container remuxes because it lives inside the image pixels themselves.
+            SynthID embeds an invisible mathematical pattern into the high-frequency transform coefficients of pixels.
+            Simple container remuxes leave this pattern untouched.
           </p>
-          <p class="accent-text">
-            → DEEP MODE: Injects micro-temporal pixel dispersion and a subtle contrast lattice shift that scrambles the statistical detection threshold, re-encoded in pristine x264 CRF 18.
-          </p>
+          <div class="vault-accent">
+            ANTI-SYNTHID DISRUPTOR: Injects micro-temporal spatial dither and a perceptual contrast shift that scrambles the statistical correlation required by DeepMind detection algorithms, re-encoded using low-memory x264 (CRF 21) engineered specifically for Render cloud 512MB RAM without timeouts.
+          </div>
         </div>
 
-        <div class="spec-block">
-          <div class="spec-title">03 // 100% LOCAL & FREE</div>
+        <div class="vault-block">
+          <div class="vault-block-title">03 // ALGORITHM CAMOUFLAGE</div>
           <p>
-            No cloud APIs, no monthly subscription fees, and no data leaving your machine. Powered by high-speed local FFmpeg.
+            Automated platform scanners flag suspicious filenames containing terms like <code>flow</code>, <code>veo</code>, <code>scrubbed</code>, or <code>c2pa</code>.
+            SPECTRE automatically spoofs organic smartphone camera files (e.g. <code>IMG_4921.mp4</code>, <code>VID_20260922.mp4</code>) so your uploads register as natural human camera clips.
           </p>
         </div>
       </div>
@@ -209,14 +342,14 @@
 
   <!-- History Modal -->
   <div id="historyModal" class="modal-backdrop hidden">
-    <div class="modal-window">
-      <div class="modal-header">
-        <h2>RECENT SCRUBBED FILES</h2>
-        <button class="btn-close" id="btnCloseHistory">✕</button>
+    <div class="modal-vault">
+      <div class="modal-vault-header">
+        <h3>// LOCAL SCRUB LOGS</h3>
+        <button class="btn-vault-close" id="btnCloseHistory">✕</button>
       </div>
-      <div class="modal-body">
-        <div id="historyItems" class="history-items">
-          <p class="dim-text">Loading history...</p>
+      <div class="modal-vault-body">
+        <div id="historyVaultList" class="history-vault-list">
+          <p class="mono-dim">Querying storage logs...</p>
         </div>
       </div>
     </div>

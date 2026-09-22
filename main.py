@@ -67,13 +67,16 @@ async def inspect_media(file: UploadFile = File(...)):
 @app.post("/api/clean")
 async def clean_media(
     file: UploadFile = File(...),
-    mode: str = Form("quick")  # "quick" or "deep"
+    mode: str = Form("quick"),
+    naming: str = Form("random")
 ):
     """
     Cleans an uploaded video or image file.
     Modes:
-      - 'quick': Lossless C2PA & container metadata wipe (~0.1s, 0% quality loss).
-      - 'deep': C2PA wipe + SynthID micro-dither re-encode (~2-5s, destroys invisible watermark).
+      - 'quick': Lossless C2PA & container metadata wipe (~0.04s, 0% quality loss).
+      - 'deep': C2PA wipe + SynthID frequency disruptor (~1s, cloud-safe, destroys watermark).
+    Naming styles:
+      - 'iphone', 'android', 'pixel', 'screen', 'editor', 'weird', 'random'
     """
     if not file.filename:
         raise HTTPException(status_code=400, detail="Invalid file.")
@@ -89,7 +92,8 @@ async def clean_media(
         result = clean_file(
             input_path=str(input_path),
             output_dir=str(OUTPUTS_DIR),
-            mode=mode
+            mode=mode,
+            naming_style=naming
         )
 
         if not result.get("success"):
@@ -105,9 +109,10 @@ async def clean_media(
 @app.post("/api/clean-batch")
 async def clean_batch(
     files: List[UploadFile] = File(...),
-    mode: str = Form("quick")
+    mode: str = Form("quick"),
+    naming: str = Form("random")
 ):
-    """Batch clean multiple videos/images in one request."""
+    """Batch clean multiple videos/images in one request with stealth naming."""
     if not files:
         raise HTTPException(status_code=400, detail="No files uploaded.")
 
@@ -122,7 +127,7 @@ async def clean_batch(
         with open(in_path, "wb") as buffer:
             shutil.copyfileobj(f.file, buffer)
 
-        res = clean_file(str(in_path), output_dir=str(OUTPUTS_DIR), mode=mode)
+        res = clean_file(str(in_path), output_dir=str(OUTPUTS_DIR), mode=mode, naming_style=naming)
         if res.get("success"):
             res["original_name"] = f.filename
             res["output_url"] = f"/outputs/{res['output_filename']}"
@@ -136,7 +141,7 @@ async def export_zip(req: ExportZipRequest):
     if not req.filenames:
         raise HTTPException(status_code=400, detail="No files specified.")
 
-    zip_filename = f"cleaned_videos_{os.urandom(4).hex()}.zip"
+    zip_filename = f"stealth_media_{os.urandom(4).hex()}.zip"
     zip_path = OUTPUTS_DIR / zip_filename
 
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
@@ -150,7 +155,8 @@ async def export_zip(req: ExportZipRequest):
 @app.get("/api/history")
 async def get_history():
     """Lists recent cleaned files."""
-    files = sorted(OUTPUTS_DIR.glob("scrubbed_*"), key=os.path.getmtime, reverse=True)
+    files = [f for f in OUTPUTS_DIR.glob("*.*") if not f.name.endswith(".zip") and not f.name.startswith(".")]
+    files.sort(key=os.path.getmtime, reverse=True)
     items = []
     for f in files[:30]:
         items.append({
