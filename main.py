@@ -67,16 +67,13 @@ async def inspect_media(file: UploadFile = File(...)):
 @app.post("/api/clean")
 async def clean_media(
     file: UploadFile = File(...),
-    mode: str = Form("quick"),
-    naming: str = Form("random")
+    mode: str = Form("quick")
 ):
     """
     Cleans an uploaded video or image file.
     Modes:
       - 'quick': Lossless C2PA & container metadata wipe (~0.04s, 0% quality loss).
       - 'deep': C2PA wipe + SynthID frequency disruptor (~1s, cloud-safe, destroys watermark).
-    Naming styles:
-      - 'iphone', 'android', 'pixel', 'screen', 'editor', 'weird', 'random'
     """
     if not file.filename:
         raise HTTPException(status_code=400, detail="Invalid file.")
@@ -92,8 +89,7 @@ async def clean_media(
         result = clean_file(
             input_path=str(input_path),
             output_dir=str(OUTPUTS_DIR),
-            mode=mode,
-            naming_style=naming
+            mode=mode
         )
 
         if not result.get("success"):
@@ -109,10 +105,9 @@ async def clean_media(
 @app.post("/api/clean-batch")
 async def clean_batch(
     files: List[UploadFile] = File(...),
-    mode: str = Form("quick"),
-    naming: str = Form("random")
+    mode: str = Form("quick")
 ):
-    """Batch clean multiple videos/images in one request with stealth naming."""
+    """Batch clean multiple videos/images in one request with clean VID_xxxx / IMG_xxxx naming."""
     if not files:
         raise HTTPException(status_code=400, detail="No files uploaded.")
 
@@ -127,7 +122,7 @@ async def clean_batch(
         with open(in_path, "wb") as buffer:
             shutil.copyfileobj(f.file, buffer)
 
-        res = clean_file(str(in_path), output_dir=str(OUTPUTS_DIR), mode=mode, naming_style=naming)
+        res = clean_file(str(in_path), output_dir=str(OUTPUTS_DIR), mode=mode)
         if res.get("success"):
             res["original_name"] = f.filename
             res["output_url"] = f"/outputs/{res['output_filename']}"
